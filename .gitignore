@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+package-lock.json.log
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Environment & Secrets
+.env
+.env*.local
+*.pem
+*.key
+*.keystore
+extension/src/lib/supabase-config.js
+
+# Expo & Metro
+.expo/
+dist/
+web-build/
+
+# Generated native directories (Managed Expo)
+mobile/android/
+mobile/ios/
+android/
+ios/
+
+# Gradle / Android caches (if native is kept)
+.gradle/
+local.properties
+build/
+
+# Xcode / iOS caches (if native is kept)
+*.xcworkspace
+xcuserdata/
+DerivedData/
+Pods/
+
+# Logs & Temp
+*.log
+npm-debug.*
+.github/modernize/

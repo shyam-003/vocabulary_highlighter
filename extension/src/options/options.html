@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vocabulary Highlighter</title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="options.css" />
+</head>
+
+<body>
+  <div class="app-layout">
+    <!-- Top Global Header -->
+    <header class="top-nav">
+      <div class="top-nav-brand">
+        <div class="brand-logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z" />
+          </svg>
+        </div>
+        <div class="brand-headings">
+          <h1 class="brand-name">Vocabulary Highlighter</h1>
+          <p class="brand-tagline">Turn highlighting into progress.</p>
+        </div>
+      </div>
+
+      <div class="top-nav-actions">
+        <!-- Language Selector Pill -->
+        <div class="lang-selector-pill" title="Change target language">
+          <span class="lang-globe-icon">🌐</span>
+          <select id="learning-lang" class="lang-select">
+            <option value="en">English (7.0k words)</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="it">Italian</option>
+          </select>
+          <span class="select-chevron">▾</span>
+        </div>
+
+        <!-- Words Learned Badge -->
+        <div class="learned-badge" id="learned-pill">
+          <span class="badge-mortarboard">🎓</span>
+          <span id="learned-count-text">0 words learned</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace (Sidebar + Content Container) -->
+    <div class="workspace-card">
+      <!-- Left Sidebar Navigation -->
+      <aside class="sidebar">
+        <nav class="sidebar-menu">
+          <button class="nav-item active" data-tab="home">
+            <span class="nav-item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+            </span>
+            <span class="nav-item-label">Home</span>
+          </button>
+
+          <button class="nav-item" data-tab="dictionary">
+            <span class="nav-item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+            </span>
+            <span class="nav-item-label">Dictionary</span>
+          </button>
+
+          <button class="nav-item" data-tab="settings">
+            <span class="nav-item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                </path>
+              </svg>
+            </span>
+            <span class="nav-item-label">Settings</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <button class="action-item" data-tab="settings" data-scroll="settings-io-section">
+            <div class="action-item-left">
+              <span class="action-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+              </span>
+              <span>Import / Export</span>
+            </div>
+            <span class="action-chevron">›</span>
+          </button>
+
+          <button class="action-item" data-tab="settings" data-scroll="settings-sync-section">
+            <div class="action-item-left">
+              <span class="action-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </span>
+              <span>Account & Sync</span>
+            </div>
+            <span class="action-chevron">›</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Right Main Content Area -->
+      <main class="content-area">
+        <!-- TAB 1: HOME & OVERVIEW -->
+        <div id="tab-home" class="tab-page active">
+          <!-- Section 1: Overview Stats Boxes (Total Vocabulary & Active Algorithm) -->
+          <section class="overview-section">
+            <div class="stats-overview-grid">
+              <div class="stat-box-card">
+                <span class="stat-box-label">Total Vocabulary</span>
+                <div class="stat-box-value" id="total-vocab-count">0</div>
+                <span class="stat-box-sub">Saved words</span>
+              </div>
+
+              <div class="stat-box-card">
+                <span class="stat-box-label">Active Algorithm</span>
+                <div class="stat-box-value">
+                  <span class="fsrs-highlight">FSRS-</span><span class="algo-version">4.5</span>
+                </div>
+                <span class="stat-box-sub">Spaced Repetition</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 2: CEFR Classification -->
+          <section class="cefr-section">
+            <div class="cefr-header-row">
+              <h3 class="cefr-title">CEFR Classification</h3>
+              <span class="cefr-coverage-label">A1 – C2 Level Coverage</span>
+            </div>
+
+            <div class="cefr-grid">
+              <div class="cefr-card cefr-a1" data-tab="dictionary" data-cefr="A1">
+                <div class="cefr-level-badge">A1</div>
+                <div class="cefr-count" id="cefr-count-a1">0</div>
+                <div class="cefr-sub">words</div>
+              </div>
+
+              <div class="cefr-card cefr-a2" data-tab="dictionary" data-cefr="A2">
+                <div class="cefr-level-badge">A2</div>
+                <div class="cefr-count" id="cefr-count-a2">0</div>
+                <div class="cefr-sub">words</div>
+              </div>
+
+              <div class="cefr-card cefr-b1" data-tab="dictionary" data-cefr="B1">
+                <div class="cefr-level-badge">B1</div>
+                <div class="cefr-count" id="cefr-count-b1">0</div>
+                <div class="cefr-sub">words</div>
+              </div>
+
+              <div class="cefr-card cefr-b2" data-tab="dictionary" data-cefr="B2">
+                <div class="cefr-level-badge">B2</div>
+                <div class="cefr-count" id="cefr-count-b2">0</div>
+                <div class="cefr-sub">words</div>
+              </div>
+
+              <div class="cefr-card cefr-c1" data-tab="dictionary" data-cefr="C1">
+                <div class="cefr-level-badge">C1</div>
+                <div class="cefr-count" id="cefr-count-c1">0</div>
+                <div class="cefr-sub">words</div>
+              </div>
+
+              <div class="cefr-card cefr-c2" data-tab="dictionary" data-cefr="C2">
+                <div class="cefr-level-badge">C2</div>
+                <div class="cefr-count" id="cefr-count-c2">0</div>
+                <div class="cefr-sub">words</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Hidden compatibility elements to support legacy handlers and streak counters -->
+          <div style="display: none;">
+            <span id="streak-days">0</span>
+            <span id="streak-cta"></span>
+            <span id="learned-7">0</span>
+            <div id="weekdays"></div>
+            <span id="best-streak">0</span>
+          </div>
+
+          <!-- Section: Learning Activity Chart -->
+          <section class="activity-section">
+            <div class="activity-header">
+              <div>
+                <h3 class="card-section-title">Learning activity</h3>
+                <p class="card-section-sub">Words learned per day</p>
+                <div id="chart-range-label" style="display: none;">Last 7 days</div>
+              </div>
+              <div class="time-range-seg" id="chart-seg">
+                <button data-range="days" class="range-btn active">7D</button>
+                <button data-range="weeks" class="range-btn">30D</button>
+                <button data-range="months" class="range-btn">3M</button>
+                <button data-range="years" class="range-btn">1Y</button>
+              </div>
+            </div>
+            <div class="chart-container" id="chart"></div>
+          </section>
+        </div>
+
+        <!-- TAB 2: DICTIONARY -->
+        <div id="tab-dictionary" class="tab-page">
+          <div class="section-head">
+            <h2 class="section-title">Vocabulary Dictionary</h2>
+            <p class="section-sub">Search, review and manage your words.</p>
+          </div>
+
+          <!-- Section: Vocabulary Dictionary Table Card -->
+          <section class="dictionary-section" id="dictionary-section">
+            <div class="dict-header-row">
+              <div>
+                <h3 class="card-section-title">Known words dictionary</h3>
+                <p class="card-section-sub">Browse, search, edit meaning, or update word status.</p>
+              </div>
+              <button id="quick-add-open-btn" class="btn-primary-sm">
+                <span>+ Add Word</span>
+              </button>
+            </div>
+
+            <!-- Search & Filters Bar -->
+            <div class="table-controls-bar">
+              <div class="search-box-wrap">
+                <span class="search-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </span>
+                <input type="text" id="search" class="search-input" placeholder="Search words or meaning…" />
+              </div>
+            </div>
+
+            <div id="search-status-card" class="search-status-card" hidden></div>
+
+            <!-- Quick Add Word Row (Collapsible/Inline) -->
+            <div id="quick-add-panel" class="quick-add-panel" style="display: none;">
+              <div class="add-row-inputs">
+                <input type="text" id="add-word" class="add-input" placeholder="Type a word to add to known words…" />
+                <button id="add-btn" class="btn-primary">Add Word</button>
+                <button id="quick-add-close-btn" class="btn-ghost">Cancel</button>
+              </div>
+              <div id="add-msg" class="add-msg"></div>
+            </div>
+
+            <!-- Modern Vocabulary Table -->
+            <div class="table-responsive">
+              <table class="vocab-table">
+                <thead>
+                  <tr>
+                    <th style="width: 26%;">Word</th>
+                    <th style="width: 54%;">Meaning</th>
+                    <th style="width: 16%;">Added</th>
+                    <th style="width: 4%;"></th>
+                  </tr>
+                </thead>
+                <tbody id="known-table-body">
+                  <!-- Dynamically rendered table rows -->
+                </tbody>
+              </table>
+              <div id="known-empty-state" class="empty-state" style="display: none;">
+                No vocabulary words match your search.
+              </div>
+            </div>
+
+            <!-- Table Pagination Controls -->
+            <div class="table-pagination-footer" id="pager-bar">
+              <span class="showing-count" id="table-showing-text">Showing 0 words</span>
+              <div class="pager-actions">
+                <button id="prev-page" class="pager-nav-btn" title="Previous Page">‹</button>
+                <div id="pager-pages" class="pager-page-numbers"></div>
+                <button id="next-page" class="pager-nav-btn" title="Next Page">›</button>
+              </div>
+              <span class="pager-info" id="pager-info" style="display: none;">Page 1</span>
+            </div>
+          </section>
+        </div>
+
+        <!-- TAB 3: SETTINGS -->
+        <div id="tab-settings" class="tab-page">
+          <div class="section-head">
+            <h2 class="section-title">Settings & Preferences</h2>
+            <p class="section-sub">Configure language translations, cloud sync, import/export, and dictionary options.
+            </p>
+          </div>
+
+          <div class="settings-card-container">
+            <!-- Group 1: Language Preferences -->
+            <div class="settings-group">
+              <h4 class="group-title">Language Preferences</h4>
+              <div class="settings-grid">
+                <label class="field">
+                  <span class="field-label">I'M LEARNING</span>
+                  <select id="settings-learning-lang" class="settings-select">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="it">Italian</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span class="field-label">TRANSLATE TO</span>
+                  <select id="translate-lang" class="settings-select">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="it">Italian</option>
+                    <option value="hi">Hindi</option>
+                  </select>
+                </label>
+              </div>
+              <p class="settings-foot" id="dict-foot"></p>
+            </div>
+
+            <hr class="settings-divider" />
+
+            <!-- Group 2: Cloud Synchronization & Account -->
+            <div class="settings-group" id="settings-sync-section">
+              <div class="dict-header-row">
+                <h4 class="group-title">Cloud Synchronization & Account</h4>
+                <span id="cloud-connection-pill" class="connection-pill disconnected">Disconnected</span>
+              </div>
+              <p class="settings-sub-text">Sync your vocabulary seamlessly between this Chrome extension and your mobile
+                app via Supabase.</p>
+
+              <!-- LOGGED IN VIEW -->
+              <div id="cloud-logged-in-card" class="cloud-card" style="display: none;">
+                <div class="user-profile-row">
+                  <div class="avatar-circle">
+                    <span id="cloud-avatar-text">U</span>
+                  </div>
+                  <div class="user-details">
+                    <div class="user-email-row">
+                      <span id="cloud-user-email" class="user-email-text">user@example.com</span>
+                      <span class="badge badge-connected">✓ Connected to Cloud</span>
+                    </div>
+                    <div id="cloud-sync-text" class="cloud-sync-detail">Sync status: Up to date</div>
+                  </div>
+                </div>
+
+                <div class="cloud-profile-actions">
+                  <button id="cloud-sync-now-btn" class="btn-primary cloud-sync-btn">
+                    <span>↻ Sync Now</span>
+                  </button>
+                  <button id="cloud-logout-btn" class="btn-secondary cloud-logout-btn">
+                    Disconnect / Logout
+                  </button>
+                </div>
+                <div id="cloud-logged-in-msg" class="cloud-auth-msg" style="margin-top: 12px; font-size: 13px;"></div>
+              </div>
+
+              <!-- LOGGED OUT VIEW -->
+              <div id="cloud-logged-out-card" class="cloud-card">
+                <div class="cloud-form-header">
+                  <div class="cloud-form-icon">☁️</div>
+                  <div>
+                    <h5 class="cloud-form-title" style="font-size: 14px;">Connect Supabase Account</h5>
+                    <p class="cloud-form-sub">Enter your Supabase credentials to sync vocabulary with your mobile app.
+                    </p>
+                  </div>
+                </div>
+
+                <div id="cloud-auth-section" class="cloud-auth-grid">
+                  <div class="field-group">
+                    <label class="cloud-label" for="cloud-email">EMAIL</label>
+                    <div class="input-with-icon">
+                      <span class="input-icon">✉️</span>
+                      <input type="email" id="cloud-email" class="cloud-input" placeholder="user@example.com"
+                        autocomplete="email" />
+                    </div>
+                  </div>
+
+                  <div class="field-group">
+                    <label class="cloud-label" for="cloud-password">PASSWORD</label>
+                    <div class="input-with-icon">
+                      <span class="input-icon">🔒</span>
+                      <input type="password" id="cloud-password" class="cloud-input" placeholder="••••••••"
+                        autocomplete="current-password" />
+                      <button type="button" class="pwd-toggle-btn" data-target="cloud-password"
+                        title="Show/Hide Password">👁️</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="cloud-actions">
+                  <button id="cloud-login-btn" class="btn-primary btn-lg">
+                    <span>Sign In & Connect</span>
+                  </button>
+                  <div id="cloud-auth-msg" class="cloud-auth-msg"></div>
+                </div>
+              </div>
+            </div>
+
+            <hr class="settings-divider" />
+
+            <!-- Group 3: Import & Export -->
+            <div class="settings-group" id="settings-io-section">
+              <h4 class="group-title">Import & Export Vocabulary</h4>
+              <p class="settings-sub-text">Export your dictionary to CSV or import words from a CSV, TXT, or JSON file.
+              </p>
+              <div class="io-actions-grid">
+                <button id="import-btn" class="btn-secondary io-btn">
+                  <span>📥 Import CSV / Text</span>
+                </button>
+                <button id="export-btn" class="btn-secondary io-btn">
+                  <span>📤 Export Dictionary (CSV)</span>
+                </button>
+              </div>
+              <input type="file" id="import-file" accept=".csv,.txt,.json,text/csv,text/plain,application/json"
+                hidden />
+              <div class="synced" id="synced-note">Saved to this browser</div>
+            </div>
+
+            <hr class="settings-divider" />
+
+            <!-- Group 4: Local Storage Reset -->
+            <div class="settings-group">
+              <h4 class="group-title" style="color: #DC2626;">Local Storage Reset</h4>
+              <p class="settings-sub-text">Clears all vocabulary words stored in this browser. Cloud database entries
+                will remain safe.</p>
+              <div>
+                <button id="clear-local-btn" class="btn-danger">Clear Local Words</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Hidden compatibility elements to support legacy handlers and overlays -->
+    <div style="display: none;">
+      <div id="known-list"></div>
+      <div id="feature-panel" hidden>
+        <h2 id="feature-title"></h2>
+        <div id="feature-body"></div>
+        <button id="feature-close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Word Details & Editor Modal -->
+  <div id="word-editor-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-title-row">
+            <h3 id="modal-word-title" class="modal-word-title">Word</h3>
+            <span id="modal-word-pos" class="modal-word-pos"></span>
+            <span id="modal-word-pron" class="modal-word-pron"></span>
+          </div>
+          <div class="modal-status-row">
+            <span id="modal-word-date" class="modal-date-text"></span>
+          </div>
+        </div>
+        <button id="modal-close-btn" class="modal-close-btn" title="Close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- CEFR Level Picker -->
+        <div class="modal-field-group">
+          <div class="modal-field-label-row">
+            <label class="modal-label">CEFR PROFICIENCY LEVEL</label>
+            <span id="modal-current-cefr-label" class="modal-field-sub">Level: B1</span>
+          </div>
+          <div class="modal-cefr-pills" id="modal-cefr-options">
+            <button type="button" class="cefr-pill-btn" data-cefr="A1">A1</button>
+            <button type="button" class="cefr-pill-btn" data-cefr="A2">A2</button>
+            <button type="button" class="cefr-pill-btn" data-cefr="B1">B1</button>
+            <button type="button" class="cefr-pill-btn" data-cefr="B2">B2</button>
+            <button type="button" class="cefr-pill-btn" data-cefr="C1">C1</button>
+            <button type="button" class="cefr-pill-btn" data-cefr="C2">C2</button>
+          </div>
+        </div>
+
+        <!-- Meaning -->
+        <div class="modal-field-group">
+          <label class="modal-label" for="modal-word-meaning">MEANING</label>
+          <textarea id="modal-word-meaning" class="modal-textarea" rows="3" placeholder="Enter meaning..."></textarea>
+        </div>
+
+        <!-- Example Sentence -->
+        <div class="modal-field-group">
+          <label class="modal-label" for="modal-word-example">EXAMPLE SENTENCE</label>
+          <textarea id="modal-word-example" class="modal-textarea" rows="2" placeholder="Example sentence using this word..."></textarea>
+        </div>
+
+        <div id="modal-msg" class="modal-msg" style="display: none;"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="modal-cancel-btn" class="btn-ghost">Cancel</button>
+        <button type="button" id="modal-save-btn" class="btn-primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
+
+</html>

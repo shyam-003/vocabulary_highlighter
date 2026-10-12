@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "Vocabulary Highlighter",
+  "version": "1.0.0",
+  "description": "Highlights words you don't know yet on any page, and helps you learn them one click at a time.",
+  "permissions": ["storage", "contextMenus", "unlimitedStorage", "tabs"],
+  "host_permissions": ["https://api.datamuse.com/*"],
+  "background": {
+    "service_worker": "src/background/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_title": "Vocabulary Highlighter",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "src/options/options.html",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "src/lib/normalizer-core.js",
+        "src/vendor/readability.js",
+        "src/reader/settings.js",
+        "src/reader/themes.js",
+        "src/reader/typography.js",
+        "src/reader/readability.js",
+        "src/reader/renderer.js",
+        "src/reader/toolbar.js",
+        "src/reader/overlay.js",
+        "src/reader/highlight.js",
+        "src/reader/reader.js",
+        "src/content/content.js"
+      ],
+      "css": ["src/content/content.css", "src/reader/reader.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
